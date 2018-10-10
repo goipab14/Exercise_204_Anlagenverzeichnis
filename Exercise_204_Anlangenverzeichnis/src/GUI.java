@@ -39,8 +39,8 @@ private AnlagenModel model = new AnlagenModel();
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -55,6 +55,9 @@ private AnlagenModel model = new AnlagenModel();
         jLabel1.setText("Year");
         jPanel1.add(jLabel1);
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016" }));
+        jPanel1.add(jComboBox1);
+
         jButton1.setText("Update");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,16 +65,13 @@ private AnlagenModel model = new AnlagenModel();
             }
         });
         jPanel1.add(jButton1);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(jComboBox1);
         jPanel1.add(jPanel3);
         jPanel1.add(jPanel5);
         jPanel1.add(jPanel4);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
 
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
