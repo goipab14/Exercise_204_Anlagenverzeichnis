@@ -1,4 +1,7 @@
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -49,8 +52,53 @@ private String [] names = {
                 return "Uups";
         }
     }
-    public void load()
-    {
-        
-    }
+    public void load() throws IOException {
+        FileReader fr;
+        fr = new FileReader("anlagenverzeichnis.csv");
+        BufferedReader br = new BufferedReader(fr);
+        br.readLine();
+        String s = br.readLine();
+        do {
+            String[] array = s.split(";");
+            String umwandler = array[1];
+            StringBuilder sb = new StringBuilder(umwandler);
+
+            if (sb.length() >= 4) {
+
+                sb.reverse();
+                sb.replace(3, 4, "");
+                sb.reverse();
+            }
+
+            if (sb.length() >= 7) {
+                sb.reverse();
+                sb.replace(6, 7, "");
+                sb.reverse();
+            }
+            if (sb.length() >= 10) {
+                sb.reverse();
+                sb.replace(9, 10, "");
+                sb.reverse();
+            }
+            umwandler = array[2];
+            StringBuilder sbInbet = new StringBuilder(umwandler);
+            if (sbInbet.length() > 4) {
+                sbInbet.replace(4, 5, ".");
+            }
+            char[] a = array[3].toCharArray();
+            StringBuilder nd = new StringBuilder();
+            for (int i = 0; i < a.length - 1; i++) {
+                if (a[i] == ',') {
+                    a[i] = '.';
+                }
+                nd.append(a[i]);
+            }
+            if (nd.length() == 0) {
+                nd = new StringBuilder(array[3]);
+            }
+            verzeichniss.add(new Anlagenverzeichnis(array[0], Double.parseDouble(sb.toString()), Double.parseDouble(sbInbet.toString()), Double.parseDouble(nd.toString()), 0, 0, 0, 0, 0));
+            this.fireTableDataChanged();
+        } while ((s = br.readLine()) != null);
+
+}
 }
