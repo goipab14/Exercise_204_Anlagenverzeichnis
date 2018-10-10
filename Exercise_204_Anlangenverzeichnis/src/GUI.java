@@ -1,3 +1,8 @@
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,6 +21,11 @@ private AnlagenModel model = new AnlagenModel();
     public GUI() {
         initComponents();
         jTable1.setModel(model);
+    try {
+        model.load();
+    } catch (IOException ex) {
+        Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }
 
     /**

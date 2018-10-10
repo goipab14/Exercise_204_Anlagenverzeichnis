@@ -10,7 +10,7 @@
  */
 public class Anlagenverzeichnis {
       public String Bezeichnung;
-    public int ak;
+    public double ak;
     public double inbetriebname;
     public double nd;
     public double bisherigeND;
@@ -19,7 +19,7 @@ public class Anlagenverzeichnis {
     public double afaDJ;
     public double buchWert;
 
-    public Anlagenverzeichnis(String Bezeichnung, int ak, double inbetriebname, double nd, double bisherigeND, double afaBisher, double wertVorAfa, double afaDJ, double buchWert) {
+    public Anlagenverzeichnis(String Bezeichnung, double ak, double inbetriebname, double nd, double bisherigeND, double afaBisher, double wertVorAfa, double afaDJ, double buchWert) {
         this.Bezeichnung = Bezeichnung;
         this.ak = ak;
         this.inbetriebname = inbetriebname;
@@ -39,7 +39,7 @@ public class Anlagenverzeichnis {
         this.Bezeichnung = Bezeichnung;
     }
 
-    public int getAk() {
+    public double getAk() {
         return ak;
     }
 
