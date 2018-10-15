@@ -21,10 +21,19 @@ private AnlagenModel model = new AnlagenModel();
     public GUI() {
         initComponents();
         jTable1.setModel(model);
+        comboYear.removeAllItems();
+        comboYear.removeAll();
+        for(int i = 0;i<=150;i++)
+        {
+            comboYear.addItem(String.valueOf(i+2000));
+        }
     try {
         model.load();
+        int year = Integer.parseInt((String) comboYear.getSelectedItem());
+     //   model.berechnen(year);
     } catch (IOException ex) {
         Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+
     }
     }
 

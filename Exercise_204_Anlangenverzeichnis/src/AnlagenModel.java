@@ -10,24 +10,25 @@ import javax.swing.table.AbstractTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Pascal
  */
-public class AnlagenModel extends AbstractTableModel{
-        private ArrayList <Anlagenverzeichnis> verzeichniss = new ArrayList();
-private String [] names = {
- " Bezeichnung","AK","Inbetriebname","ND","bisherige ND","Afa bisher","Wert vor Afa","Afa d. J.","Buchwert 31.12"  
-};
+public class AnlagenModel extends AbstractTableModel {
+
+    private ArrayList<Anlagenverzeichnis> verzeichniss = new ArrayList();
+    private String[] names = {
+        " Bezeichnung", "AK", "Inbetriebname", "ND", "bisherige ND", "Afa bisher", "Wert vor Afa", "Afa d. J.", "Buchwert 31.12"
+    };
+
     @Override
     public int getRowCount() {
-       return verzeichniss.size();
+        return verzeichniss.size();
     }
 
     @Override
     public int getColumnCount() {
-       return names.length;
+        return names.length;
     }
 
     @Override
@@ -37,21 +38,30 @@ private String [] names = {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        switch(columnIndex)
-        {
-            case 0: return verzeichniss.get(rowIndex).getBezeichnung();
-            case 1: return verzeichniss.get(rowIndex).getAk();
-            case 2: return verzeichniss.get(rowIndex).getInbetriebname();
-            case 3: return verzeichniss.get(rowIndex).getNd();
-            case 4: return verzeichniss.get(rowIndex).getBisherigeND();
-            case 5: return verzeichniss.get(rowIndex).getAfaBisher();
-            case 6: return verzeichniss.get(rowIndex).getWertVorAfa();
-            case 7: return verzeichniss.get(rowIndex).getAfaDJ();
-            case 8: return verzeichniss.get(rowIndex).getBuchWert();
+        switch (columnIndex) {
+            case 0:
+                return verzeichniss.get(rowIndex).getBezeichnung();
+            case 1:
+                return verzeichniss.get(rowIndex).getAk();
+            case 2:
+                return verzeichniss.get(rowIndex).getInbetriebname();
+            case 3:
+                return verzeichniss.get(rowIndex).getNd();
+            case 4:
+                return verzeichniss.get(rowIndex).getBisherigeND();
+            case 5:
+                return verzeichniss.get(rowIndex).getAfaBisher();
+            case 6:
+                return verzeichniss.get(rowIndex).getWertVorAfa();
+            case 7:
+                return verzeichniss.get(rowIndex).getAfaDJ();
+            case 8:
+                return verzeichniss.get(rowIndex).getBuchWert();
             default:
                 return "Uups";
         }
     }
+
     public void load() throws IOException {
         FileReader fr;
         fr = new FileReader("anlagenverzeichnis.csv");
@@ -100,5 +110,32 @@ private String [] names = {
             this.fireTableDataChanged();
         } while ((s = br.readLine()) != null);
 
-}
+    }
+
+    public void berechnen(int year) {
+
+        for (int i = 0; i < verzeichniss.size(); i++) {
+
+            if (year - verzeichniss.get(i).getInbetriebname() >= 0) {
+                verzeichniss.get(i).setBisherigeND(year - verzeichniss.get(i).getInbetriebname());
+            } else {
+                verzeichniss.get(i).setBisherigeND(0);
+            }
+            if (verzeichniss.get(i).getNd() <= verzeichniss.get(i).getBisherigeND()) {
+                verzeichniss.get(i).setBisherigeND(verzeichniss.get(i).getNd());
+            }
+            if (verzeichniss.get(i).getBisherigeND() != 0) {
+                verzeichniss.get(i).setAfaDJ((verzeichniss.get(i).getAk() * ((100 / verzeichniss.get(i).getNd()) / 100)));
+            } else {
+                verzeichniss.get(i).setAfaDJ(0);
+            }
+            if (verzeichniss.get(i).getNd() <= verzeichniss.get(i).getBisherigeND()) {
+                verzeichniss.get(i).setAfaDJ(0);
+            }
+            verzeichniss.get(i).setAfaBisher((verzeichniss.get(i).getAk() * ((100 / verzeichniss.get(i).getNd()) / 100)) * verzeichniss.get(i).getBisherigeND());
+            verzeichniss.get(i).setWertVorAfa(verzeichniss.get(i).getAk() - verzeichniss.get(i).getAfaBisher());
+            verzeichniss.get(i).setBuchWert(verzeichniss.get(i).getWertVorAfa() - verzeichniss.get(i).getAfaDJ());
+        }
+        this.fireTableDataChanged();
+    }
 }
