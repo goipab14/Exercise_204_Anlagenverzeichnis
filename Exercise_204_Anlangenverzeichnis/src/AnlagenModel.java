@@ -97,7 +97,7 @@ public class AnlagenModel extends AbstractTableModel {
             }
             char[] a = array[3].toCharArray();
             StringBuilder nd = new StringBuilder();
-            for (int i = 0; i < a.length - 1; i++) {
+            for (int i = 0; i < a.length; i++) {
                 if (a[i] == ',') {
                     a[i] = '.';
                 }

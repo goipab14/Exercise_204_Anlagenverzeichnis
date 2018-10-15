@@ -109,7 +109,7 @@ private AnlagenModel model = new AnlagenModel();
 
     private void updateTableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateTableActionPerformed
         int year = Integer.parseInt((String) comboYear.getSelectedItem());
-        System.out.println(year);
+        model.berechnen(year);
     }//GEN-LAST:event_updateTableActionPerformed
 
     private void comboYearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboYearActionPerformed
